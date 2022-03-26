@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: "postgres"
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_USER: "admin"
+      POSTGRES_DB: "test"
+
+  data_migrations:
+    build: ./migrations
+    container_name: migrations
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_USER: "admin"
+      POSTGRES_DB: "test"
+
+  task_server:
+    build: ./server
+    container_name: task_server
+    depends_on:
+      - data_migrations
+    environment:
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_USER: "admin"
+      POSTGRES_DB: "test"
+    ports:
+      - "80:80"
