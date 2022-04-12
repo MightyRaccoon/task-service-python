@@ -5,10 +5,10 @@ import databases
 import sqlalchemy
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.logger import  logger
+from fastapi.logger import logger
 from sqlalchemy import create_engine
 
-from models import TaskIn, TaskOut
+from models.task import TaskIn, TaskOut
 
 logger.info("Configure Start")
 
